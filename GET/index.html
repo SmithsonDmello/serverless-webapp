@@ -30,10 +30,10 @@
                     success: function (data) {   											
                         self.firstName(data.Item.FirstName),
                         self.lastName(data.Item.LastName),
-						self.aadharNumber(data.Item.AadharNumber),
-						self.mobileNumber(data.Item.MobileNumber),
+			self.aadharNumber(data.Item.AadharNumber),
+			self.mobileNumber(data.Item.MobileNumber),
                         self.emailId(data.Item.EmailId),
-						self.rationNumber(data.Item.RationNumber)
+			self.rationNumber(data.Item.RationNumber)
                     }
                 });
             }
@@ -54,12 +54,12 @@
         </tr>
     </table>
 
-    <br />
+    <br/>
   
     <table id="RationCardHolders">
         <thead>
 
-			<tr>
+	    <tr>
                 <td>First Name:</td>
                 <td><label id="firstName" data-bind="text: firstName"/></td>
             </tr>
@@ -67,11 +67,11 @@
                 <td>Last Name:</td>
                 <td><label id="lastName" data-bind="text: lastName"/></td>
             </tr>
-			   <tr>
+	    <tr>
                 <td>Aadhar Number:</td>
                 <td><label id="aadharNumber" data-bind="text: aadharNumber"/></td>
             </tr>
-			<tr>
+	    <tr>
                 <td>Mobile Number:</td>
                 <td><label id="mobileNumber" data-bind="text: mobileNumber"/></td>
             </tr>
@@ -79,7 +79,7 @@
                 <td>Email:</td>
                 <td><label id="emailId" data-bind="text: emailId"/></td>
             </tr>
-			<tr>
+	    <tr>
                 <td>RationCard Number:</td>
                 <td><label id="rationNumber" data-bind="text: rationNumber"/></td>
             </tr>
@@ -88,7 +88,7 @@
       
         </table>
 
-    <br />
+    <br/>
   
   <table>
 <tr>
