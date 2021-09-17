@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="knockout-3.4.2.js"></script>
+    <script type="text/javascript">
+        
+
+        $(document).ready(function() {
+
+            var customerViewModel = function() {
+            var self = this;
+            self.firstName = ko.observable("");
+            self.lastName = ko.observable("");
+            self.emailId = ko.observable("");
+			self.aadharNumber = ko.observable("");
+            self.mobileNumber = ko.observable(""); 
+			self.rationNumber = ko.observable("");			
+            self.searchKey = ko.observable("");
+
+            self.getRCHolderDetails = function () {              
+                $.ajax({
+					
+                    url: 'https://rdl0bmi7p5.execute-api.ap-south-1.amazonaws.com/DEV/getrationcardholderdetailsbyrcnumber',
+                    cache: false,
+                    type: 'GET',                   
+                    data: { "RationNumber": self.searchKey() },
+                    success: function (data) {   											
+                        self.firstName(data.Item.FirstName),
+                        self.lastName(data.Item.LastName),
+						self.aadharNumber(data.Item.AadharNumber),
+						self.mobileNumber(data.Item.MobileNumber),
+                        self.emailId(data.Item.EmailId),
+						self.rationNumber(data.Item.RationNumber)
+                    }
+                });
+            }
+        }
+
+            var viewModel = new customerViewModel();
+            ko.applyBindings(viewModel);
+         });
+
+       
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Search Key(RationCard Number):</td>
+            <td><input type="text" id="txtSearchKey" data-bind="value : searchKey"/></td>
+        </tr>
+    </table>
+
+    <br />
+  
+    <table id="RationCardHolders">
+        <thead>
+
+			<tr>
+                <td>First Name:</td>
+                <td><label id="firstName" data-bind="text: firstName"/></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><label id="lastName" data-bind="text: lastName"/></td>
+            </tr>
+			   <tr>
+                <td>Aadhar Number:</td>
+                <td><label id="aadharNumber" data-bind="text: aadharNumber"/></td>
+            </tr>
+			<tr>
+                <td>Mobile Number:</td>
+                <td><label id="mobileNumber" data-bind="text: mobileNumber"/></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><label id="emailId" data-bind="text: emailId"/></td>
+            </tr>
+			<tr>
+                <td>RationCard Number:</td>
+                <td><label id="rationNumber" data-bind="text: rationNumber"/></td>
+            </tr>
+          
+        </thead>
+      
+        </table>
+
+    <br />
+  
+  <table>
+<tr>
+    <td><input type="button" value="Get RationCard Holder Details" data-bind="click: $root.getRCHolderDetails()"/></td>
+</tr>
+  </table>
+</body>
+</html>
