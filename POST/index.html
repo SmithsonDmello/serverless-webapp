@@ -15,47 +15,44 @@
             var customerDetailsViewModel = function() {
             var self = this;
 			
-			self.firstName = ko.observable("");
-            self.lastName = ko.observable("");
-            self.emailId = ko.observable("");
-			self.aadharNumber = ko.observable("");
-            self.mobileNumber = ko.observable(""); 
-			self.rationNumber = ko.observable("");	
+			self.RationNumber = ko.observable("");	
+			self.FirstName = ko.observable("");
+            self.LastName = ko.observable("");
+			self.AadharNumber = ko.observable("");
+            self.MobileNumber = ko.observable(""); 
+			self.EmailId = ko.observable("");
+            self.SuccessMessage = ko.observable("");
 			
 			
-
             self.SaveCustomerDetails = function () {              
                 
 				var CustomerDetail = {
 				
-				firstName: self.firstName(),
-				lastName: self.lastName(),
-				emailId: self.emailId(),
-				aadharNumber: self.aadharNumber(),
-				mobileNumber: self.mobileNumber(),
-				rationNumber: self.rationNumber()
-				
+				RationNumber: self.RationNumber(),
+				FirstName: self.FirstName(),
+				LastName: self.LastName(),				
+				AadharNumber: self.AadharNumber(),
+				MobileNumber: self.MobileNumber(),
+				EmailId: self.EmailId()	
+
 				}
 				
-				
-				
-				
-				
+								
 				$.ajax({
 					crossDomain: true,
 					
-                    url: 'https://muf68rn1e0.execute-api.ap-south-1.amazonaws.com/Dev/postrationcardholderdetails',									
+                    url: 'https://94hi59zuz1.execute-api.ap-south-1.amazonaws.com/DEV/saverationcardholderdetails',									
                     cache: false,
                     type: 'POST', 
                     data: ko.toJSON(CustomerDetail),
                     success: function (data) {              
                         self.SuccessMessage(data)
-							self.firstName('');
-							self.lastName('');
-							self.emailId('');
-							self.aadharNumber('');
-							self.mobileNumber('');
-							self.rationNumber('');
+						self.RationNumber('');
+						self.FirstName('');
+						self.LastName('');				
+						self.AadharNumber('');
+						self.MobileNumber('');
+						self.EmailId('');	
 							
 						
                     }
@@ -81,32 +78,29 @@
         <tr>
             <td>
 				<div>
-				<p>
-					RationNumber:
-					<input data-bind='value: RationNumber' />
-					
-					</p>
-					
-					<p>					
+						<p>					
+						RationNumber:
+						<input data-bind='value: RationNumber' />
+						</p>
+						<p>
 						FirstName:
 						<input data-bind='value: FirstName' />
-					</p>
-					<p>
+						</p>
+						<p>
 						LastName:
 						<input data-bind='value: LastName' />
-					</p>
-					<p>					
+						</p>
+						<p>
 						AadharNumber:
 						<input data-bind='value: AadharNumber' />
-					</p>
-					<p>
+						</p>
+						<p>
 						MobileNumber:
 						<input data-bind='value: MobileNumber' />
-					</p>
-					<p>					
+						</p><p>
 						EmailId:
 						<input data-bind='value: EmailId' />
-					</p>					
+						</p>
 						
 						</div>
 						
