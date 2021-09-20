@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="knockout-3.4.2.js"></script>
+    <script type="text/javascript">
+        
+
+		jQuery.support.cors = true;
+		
+        $(document).ready(function() {
+
+            var customerDetailsViewModel = function() {
+            var self = this;
+			
+			self.RationNumber = ko.observable("");	
+			self.FirstName = ko.observable("");
+            self.LastName = ko.observable("");
+			self.AadharNumber = ko.observable("");
+            self.MobileNumber = ko.observable(""); 
+			self.EmailId = ko.observable("");
+            self.SuccessMessage = ko.observable("");
+			
+			
+            self.SaveCustomerDetails = function () {              
+                
+				var CustomerDetail = {
+				
+				RationNumber: self.RationNumber(),
+				FirstName: self.FirstName(),
+				LastName: self.LastName(),				
+				AadharNumber: self.AadharNumber(),
+				MobileNumber: self.MobileNumber(),
+				EmailId: self.EmailId()	
+
+				}
+				
+								
+				$.ajax({
+					crossDomain: true,
+					
+                    url: 'https://94hi59zuz1.execute-api.ap-south-1.amazonaws.com/DEV/saverationcardholderdetails',									
+                    cache: false,
+                    type: 'POST', 
+                    data: ko.toJSON(CustomerDetail),
+                    success: function (data) {              
+                        self.SuccessMessage(data)
+						self.RationNumber('');
+						self.FirstName('');
+						self.LastName('');				
+						self.AadharNumber('');
+						self.MobileNumber('');
+						self.EmailId('');	
+							
+						
+                    }
+					}).fail(
+					
+					
+					function(xhr, textStatus, err){
+					alert("Error happened "+err);
+					
+                });
+            };
+        }
+
+            var viewModel = new customerDetailsViewModel();
+            ko.applyBindings(viewModel);
+         });
+
+       
+    </script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+				<div>
+						<p>					
+						RationNumber:
+						<input data-bind='value: RationNumber' />
+						</p>
+						<p>
+						FirstName:
+						<input data-bind='value: FirstName' />
+						</p>
+						<p>
+						LastName:
+						<input data-bind='value: LastName' />
+						</p>
+						<p>
+						AadharNumber:
+						<input data-bind='value: AadharNumber' />
+						</p>
+						<p>
+						MobileNumber:
+						<input data-bind='value: MobileNumber' />
+						</p><p>
+						EmailId:
+						<input data-bind='value: EmailId' />
+						</p>
+						
+						</div>
+						
+					<span style ="color: darkolivegreen" data-bind='text : SuccessMessage' />
+					
+				</td>
+				</tr>
+				<tr>
+					<td>
+						<div>
+								<button data-bind="click: $root.SaveCustomerDetails" > Save </button>
+							</div>
+						</td>
+					</tr>
+					
+				</table>
+				
+				</body>
+				</html>
